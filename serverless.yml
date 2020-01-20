@@ -1,0 +1,37 @@
+# template docs: https://serverless.com/framework/docs/providers/aws/guide/layers/
+service: selenium-lambda-layer
+
+provider:
+  name: aws
+  stage: dev
+  region: ap-northeast-1
+
+layers:
+  selenium:
+    path: selenium
+    description: selenium layer, Runtime python3.7
+    compatibleRuntimes:
+      - python3.7
+  headlessChrome:
+    path: headless_chrome
+    description: serverless-chrome v1.0.0-55, ChromeDriver2.41
+    compatibleRuntimes:
+      - python3.6
+      - python3.7
+      - python3.8
+
+# docs: The name of your layer in the CloudFormation template will be your layer name TitleCased (without spaces) and have LambdaLayer appended to the end.
+resources:
+  Outputs:
+    SeleniumLambdaLayerArn:
+      Description: The ARN for the SeleniumLambdaLayer
+      Value:
+        Ref: SeleniumLambdaLayer
+      Export:
+        Name: SeleniumLambdaLayer
+    HeadlessChromeLambdaLayerArn:
+      Description: The ARN for the HeadlessChromeLambdaLayer
+      Value:
+        Ref: HeadlessChromeLambdaLayer
+      Export:
+        Name: HeadlessChromeLambdaLayer
